@@ -11,7 +11,7 @@ public class PlayerInformation : MonoBehaviour
 	public	float lastTime;
 	public	float timeLimit;
 	public	float addScore;
-	private float currencyLimit;
+	public float currencyLimit;
 
 	//public SpriteRenderer filter;
 
@@ -65,7 +65,7 @@ public class PlayerInformation : MonoBehaviour
 			if (nightsForm > 1)
 			{
 				nightsForm--;
-				time = timeLimit;
+				time = currencyLimit - 5;
 			}
 		}
 

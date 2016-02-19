@@ -9,10 +9,14 @@ public class GeneratePosN3X : MonoBehaviour
 	
 	public	float			randomXPositionMin = 0f;
 	public	float			randomXPositionMax = 0f;
-	
-	private	float			randomX = 0f;
-	
-	private	Vector3			randomPos;
+
+    public float randomYPositionMin = 0f;
+    public float randomYPositionMax = 0f;
+
+    private	float			randomX = 0f;
+    private float randomY = 0f;
+
+    private	Vector3			randomPos;
 	
 	public	PlayerInformation playerInfo;
 	public	int	nightsForm;
@@ -34,7 +38,9 @@ public class GeneratePosN3X : MonoBehaviour
 		nightsForm = playerInfo.nightsForm;
 
 		randomX = Random.Range (randomXPositionMin, randomXPositionMax);
-		randomPos = new Vector3 (transform.position.x + randomX, transform.position.y, -1f);
+        randomY = Random.Range(randomYPositionMin, randomYPositionMax);
+
+        randomPos = new Vector3 (transform.position.x + randomX, transform.position.y + randomY, -1f);
 		
 		nightsForm = playerInfo.nightsForm;
 		

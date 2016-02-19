@@ -25,26 +25,18 @@ public class PlayerAction : MonoBehaviour
 		transform.position += new Vector3 (0f, verticalSpeed * Input.GetAxis (ver), 0f);
 		GetComponent<Rigidbody2D>().AddForce (transform.right * horizontalSpeed);
 
+        if (transform.position.y > 10)
+            transform.position = new Vector2(transform.position.x, 10.0f);
+        if (transform.position.y < -19)
+            transform.position = new Vector2(transform.position.x, -19.0f);
+
 		//rigidbody2D.AddForce (transform.up * Input.GetAxis (ver) * verticalSpeed);
-		
 		
 		if (Input.GetKey(KeyCode.Space))
 		{
 			Pause = !Pause;
-			Time.timeScale = Pause ? 0 : 1; //ternary operators?
+			Time.timeScale = Pause ? 0 : 1; // ternary operators.
 		}
-
-		/*if (Input.GetKeyDown("p"))
-		{
-			if (Time.timeScale != 0)
-			{
-				Time.timeScale = 0;
-			}
-			else if (Time.timeScale == 0)
-			{
-				Time.timeScale = 1;
-			}
-		}*/
 	}
 
 	void OnCollisionEnter2D (Collision2D col)
@@ -70,7 +62,7 @@ public class PlayerAction : MonoBehaviour
 
 			playerInfo.score += playerInfo.addScore;
 
-			playerInfo.time += 10f;
+			playerInfo.time += 5f;
 		}
 	}
 
