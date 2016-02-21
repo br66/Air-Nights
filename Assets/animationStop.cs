@@ -2,26 +2,20 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class ScrollInfinite : MonoBehaviour 
+public class animationStop : MonoBehaviour
 {
-	MeshRenderer mr;
-	Material mat;
-	Vector2 offset;
-	public float backgroundSlowdown;
-
     private GameInfo game;
     private bool foundGameObject;
 
+    private Animator animator;
+
 	// Use this for initialization
-	void Start () 
-	{
+	void Start ()
+    {
         foundGameObject = false;
-
-		mr = GetComponent<MeshRenderer> ();
-		mat = mr.material;
-		offset = mat.mainTextureOffset;
-
         FindGameInfoScript();
+
+        animator = GetComponent<Animator>();
     }
 
     // needed to find the object in the heirachy called 'game' which gives the player the ability to pause the game
@@ -40,12 +34,12 @@ public class ScrollInfinite : MonoBehaviour
         }
     }
 
-	// Update is called once per frame
-	void Update () 
-	{
-        if (!game.paused)
-		    offset.x += Time.deltaTime/backgroundSlowdown;
-
-		mat.mainTextureOffset = offset;
+    // Update is called once per frame
+    void Update ()
+    {
+        if (game.paused)
+            animator.enabled = false;
+        else
+            animator.enabled = true;
 	}
 }

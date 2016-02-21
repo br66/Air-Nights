@@ -15,7 +15,7 @@ public class ColorChanger : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		//nightsForm = playerInfo.nightsForm;
+
 	}
 	
 	// Update is called once per frame

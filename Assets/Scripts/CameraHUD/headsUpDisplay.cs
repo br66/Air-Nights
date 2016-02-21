@@ -8,8 +8,11 @@ public class headsUpDisplay : MonoBehaviour
 	public	Text	score;
 	public	Text	time;
 	public	Text	nightsForm;
+    public  Text    paused;
 
-	public	PlayerInformation playerInfo;
+    public PlayerInformation playerInfo;
+    public GameInfo game;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -18,13 +21,18 @@ public class headsUpDisplay : MonoBehaviour
 		time.text = "t " + playerInfo.time; 
 		nightsForm.text = "nf " + playerInfo.nightsForm;
 	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		health.text = "HEALTH || " + playerInfo.health;
-		score.text = "SCORE || " + playerInfo.score;
-		time.text = "TIME || " + playerInfo.time; 
-		nightsForm.text = "NIGHT || " + playerInfo.nightsForm;
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        health.text = "HEALTH || " + playerInfo.health;
+        score.text = "SCORE || " + playerInfo.score;
+        time.text = "TIME || " + playerInfo.time;
+        nightsForm.text = "NIGHT || " + playerInfo.nightsForm;
+
+        if (game.paused)
+            paused.enabled = true;
+        else
+            paused.enabled = false;
+    }
 }

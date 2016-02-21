@@ -1,25 +1,21 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class ScrollInfinite : MonoBehaviour 
+public class MoveLeft : MonoBehaviour
 {
-	MeshRenderer mr;
-	Material mat;
-	Vector2 offset;
-	public float backgroundSlowdown;
+    private Transform obstacle;
+    public float resistance;
 
     private GameInfo game;
     private bool foundGameObject;
 
-	// Use this for initialization
-	void Start () 
-	{
+    // Use this for initialization
+    void Start ()
+    {
         foundGameObject = false;
 
-		mr = GetComponent<MeshRenderer> ();
-		mat = mr.material;
-		offset = mat.mainTextureOffset;
+        obstacle = GetComponent<Transform>();
 
         FindGameInfoScript();
     }
@@ -40,12 +36,12 @@ public class ScrollInfinite : MonoBehaviour
         }
     }
 
-	// Update is called once per frame
-	void Update () 
-	{
+    // Update is called once per frame
+    void Update ()
+    {
         if (!game.paused)
-		    offset.x += Time.deltaTime/backgroundSlowdown;
-
-		mat.mainTextureOffset = offset;
-	}
+        {
+            obstacle.position += Vector3.right * resistance;
+        }
+    }
 }

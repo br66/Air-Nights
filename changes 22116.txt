@@ -1,0 +1,16 @@
+2/21/16
+
+new obstacle for night 3
+nearly every script edited for pause feature
+new scripts made to support pause feature
+found way to make temporary objects refer to objects already in heirarchy
+scenes edited to show final score at end of game
+removeself script deprecated, replaced with removeself 2
+changed colors corresponding to night level
+changed colors for game over screen
+changed player movement
+checkpoints positions are more random
+slight difficulty changes
+don't know if this was pointed out before but...
+... i made it harder to reach next night
+some other small but unimportant stuff i'm probably forgetting

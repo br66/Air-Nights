@@ -7,19 +7,22 @@ public class GeneratePosN3X : MonoBehaviour
 	public	float			spawnMin = 1f;
 	public	float			spawnMax = 2f;
 	
-	public	float			randomXPositionMin = 0f;
-	public	float			randomXPositionMax = 0f;
+	//public	float			randomXPositionMin = 0f;
+	//public	float			randomXPositionMax = 0f;
 
     public float randomYPositionMin = 0f;
     public float randomYPositionMax = 0f;
 
-    private	float			randomX = 0f;
+    //private	float			randomX = 0f;
     private float randomY = 0f;
 
     private	Vector3			randomPos;
 	
 	public	PlayerInformation playerInfo;
-	public	int	nightsForm;
+
+    public GameInfo game;
+
+    public	int	nightsForm;
 
 	// Use this for initialization
 	void Start ()
@@ -35,23 +38,24 @@ public class GeneratePosN3X : MonoBehaviour
 
 	void Spawn () 
 	{
-		nightsForm = playerInfo.nightsForm;
+        if (!game.paused)
+        {
+            nightsForm = playerInfo.nightsForm;
 
-		randomX = Random.Range (randomXPositionMin, randomXPositionMax);
-        randomY = Random.Range(randomYPositionMin, randomYPositionMax);
+            //randomX = Random.Range(randomXPositionMin, randomXPositionMax);
+            randomY = Random.Range(randomYPositionMin, randomYPositionMax);
 
-        randomPos = new Vector3 (transform.position.x + randomX, transform.position.y + randomY, -1f);
-		
-		nightsForm = playerInfo.nightsForm;
-		
-		if (nightsForm == 3)
-		{
-			Instantiate(obj[Random.Range(0, obj.GetLength(0))], randomPos, Quaternion.identity);
-		}
-		
-		Invoke ("Spawn", Random.Range (spawnMin, spawnMax));
+            randomPos = new Vector3(transform.position.x, transform.position.y + randomY, -1f);
 
-		nightsForm = playerInfo.nightsForm;
+            nightsForm = playerInfo.nightsForm;
+
+            if (nightsForm == 3)
+            {
+                Instantiate(obj[Random.Range(0, obj.GetLength(0))], randomPos, Quaternion.Euler(0,0,-90));
+            }
+        }
 		
+        Invoke("Spawn", Random.Range(spawnMin, spawnMax));
+        nightsForm = playerInfo.nightsForm;
 	}
 }

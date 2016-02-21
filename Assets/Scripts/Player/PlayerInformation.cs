@@ -13,7 +13,7 @@ public class PlayerInformation : MonoBehaviour
 	public	float addScore;
 	public float currencyLimit;
 
-	//public SpriteRenderer filter;
+    public GameInfo game;
 
 	// Use this for initialization
 	void Start () 
@@ -71,18 +71,11 @@ public class PlayerInformation : MonoBehaviour
 
 		if(health <= 0)
 		{
-			//if (nightsForm > 1)
-			//{
-			//	time = timeLimit; //reset time
-			//	health = 100; //reset health
-			//	nightsForm--; //lower for
-			//}
-			//else
-			//{
-				health = 0;
-				//Debug.Log("GAME OVER");
-				Application.LoadLevel("death_test");
-			//}
+			health = 0;
+            //Debug.Log("GAME OVER");
+            PlayerPrefs.SetFloat("Your Score ", score);
+            PlayerPrefs.Save();
+            Application.LoadLevel("death_test");
 		}
 
 		if(time <= 0)
@@ -93,8 +86,10 @@ public class PlayerInformation : MonoBehaviour
 			}
 			if (nightsForm == 1)
 			{
-				Debug.Log("GAME OVER");
-				Application.LoadLevel("death_test");
+                //Debug.Log("GAME OVER");
+                PlayerPrefs.SetFloat("Your Score ", score);
+                PlayerPrefs.Save();
+                Application.LoadLevel("death_test");
 			}
 		}
 
@@ -104,8 +99,11 @@ public class PlayerInformation : MonoBehaviour
 			{
 				if (nightsForm != 4)
 				{
-					time -= currencyLimit;
-					nightsForm++;
+                    if (!game.paused)
+                    {
+                        time -= currencyLimit;
+                        nightsForm++;
+                    }
 					//Debug.Log(nightsForm);
 				}
 			}
@@ -114,15 +112,17 @@ public class PlayerInformation : MonoBehaviour
 
 	IEnumerator timerDecrease ()
 	{
-		time--;
-		yield return new WaitForSeconds (1f);
-		StartCoroutine ("timerDecrease");
-	}
+        if (!game.paused)
+            time--;
+        yield return new WaitForSeconds(1f);
+        StartCoroutine("timerDecrease");
+    }
 
 	IEnumerator scoreIncrease()
 	{
-		score += 100;
-		yield return new WaitForSeconds (5f);
-		StartCoroutine ("scoreIncrease");
-	}
+        if (!game.paused)
+            score += 100;
+        yield return new WaitForSeconds(5f);
+        StartCoroutine("scoreIncrease");
+    }
 }

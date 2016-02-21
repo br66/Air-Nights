@@ -15,14 +15,16 @@ public class GeneratePosN4 : MonoBehaviour
 	private	Vector3			randomPos;
 	
 	public	PlayerInformation playerInfo;
-	public	int	nightsForm;
+
+    public GameInfo game;
+
+    public	int	nightsForm;
 	
 	// Use this for initialization
 	void Start () 
 	{
 		Spawn ();
 	}
-	
 	
 	void Update()
 	{
@@ -32,16 +34,19 @@ public class GeneratePosN4 : MonoBehaviour
 	// Update is called once per frame
 	void Spawn () 
 	{
-		nightsForm = playerInfo.nightsForm;
-		randomY = Random.Range (randomYPositionMin, randomYPositionMax);
-		randomPos = new Vector3 (transform.position.x, transform.position.y + randomY, -1f);
-		
-		nightsForm = playerInfo.nightsForm;
-		
-		if (nightsForm == 4)
-		{
-			Instantiate(obj[Random.Range(0, obj.GetLength(0))], randomPos, Quaternion.identity);
-		}
+        if(!game.paused)
+        {
+            nightsForm = playerInfo.nightsForm;
+            randomY = Random.Range(randomYPositionMin, randomYPositionMax);
+            randomPos = new Vector3(transform.position.x, transform.position.y + randomY, -1f);
+
+            nightsForm = playerInfo.nightsForm;
+
+            if (nightsForm == 4)
+            {
+                Instantiate(obj[Random.Range(0, obj.GetLength(0))], randomPos, Quaternion.identity);
+            }
+        }
 		
 		Invoke ("Spawn", Random.Range (spawnMin, spawnMax));
 		nightsForm = playerInfo.nightsForm;

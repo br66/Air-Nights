@@ -9,8 +9,7 @@ public class PlayerAction : MonoBehaviour
 	public float verticalSpeed = 0f;
 
 	public PlayerInformation playerInfo;
-
-	public bool Pause = false;
+    public GameInfo game;
 
 	// Use this for init
 	void Start () 
@@ -21,23 +20,22 @@ public class PlayerAction : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
-		//Debug.Log (Time.timeScale);
-		transform.position += new Vector3 (0f, verticalSpeed * Input.GetAxis (ver), 0f);
-		GetComponent<Rigidbody2D>().AddForce (transform.right * horizontalSpeed);
+        if (!game.paused)
+        {
+            //Debug.Log (Time.timeScale);
+            transform.position += new Vector3(0f, verticalSpeed * Input.GetAxis(ver), 0f);
+            //GetComponent<Rigidbody2D>().AddForce(transform.right * horizontalSpeed);
+            GetComponent<Rigidbody2D>().velocity = transform.right * horizontalSpeed;
+            if (transform.position.y > 10)
+                transform.position = new Vector2(transform.position.x, 10.0f);
+            if (transform.position.y < -19)
+                transform.position = new Vector2(transform.position.x, -19.0f);
 
-        if (transform.position.y > 10)
-            transform.position = new Vector2(transform.position.x, 10.0f);
-        if (transform.position.y < -19)
-            transform.position = new Vector2(transform.position.x, -19.0f);
-
-		//rigidbody2D.AddForce (transform.up * Input.GetAxis (ver) * verticalSpeed);
-		
-		if (Input.GetKey(KeyCode.Space))
-		{
-			Pause = !Pause;
-			Time.timeScale = Pause ? 0 : 1; // ternary operators.
-		}
-	}
+            //rigidbody2D.AddForce (transform.up * Input.GetAxis (ver) * verticalSpeed);
+        }
+        if (game.paused)
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+    }
 
 	void OnCollisionEnter2D (Collision2D col)
 	{

@@ -14,11 +14,13 @@ public class gameOver : MonoBehaviour
 	{
 		if (Input.GetKey(KeyCode.Escape))
 		{
+            PlayerPrefs.DeleteAll();
 			Application.Quit();
 		}
 
 		if (Input.GetKey(KeyCode.R))
 		{
+            PlayerPrefs.DeleteAll();
 			Application.LoadLevel("test");
 		}
 	}

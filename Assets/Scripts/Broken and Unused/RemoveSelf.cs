@@ -1,25 +1,20 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
-public class ScrollInfinite : MonoBehaviour 
+public class RemoveSelf : MonoBehaviour 
 {
-	MeshRenderer mr;
-	Material mat;
-	Vector2 offset;
-	public float backgroundSlowdown;
+	private int existenceTime = 5;
 
     private GameInfo game;
     private bool foundGameObject;
 
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start () 
 	{
         foundGameObject = false;
 
-		mr = GetComponent<MeshRenderer> ();
-		mat = mr.material;
-		offset = mat.mainTextureOffset;
+        Invoke("Destroy", existenceTime);
 
         FindGameInfoScript();
     }
@@ -40,12 +35,31 @@ public class ScrollInfinite : MonoBehaviour
         }
     }
 
-	// Update is called once per frame
-	void Update () 
+    // Update is called once per frame
+    void Update () 
 	{
-        if (!game.paused)
-		    offset.x += Time.deltaTime/backgroundSlowdown;
+        if (game.paused)
+            CancelInvoke("Destroy");
 
-		mat.mainTextureOffset = offset;
-	}
+        if (game.paused)
+            WaitingForUnpaused();
+
+        if (this.transform.childCount == 0)
+        {
+            if (!game.paused)
+                Destroy(this.gameObject);
+        }
+    }
+
+    void Destroy()
+    {  
+        if (!game.paused)
+            Destroy(this.gameObject, existenceTime);
+    }
+
+    void WaitingForUnpaused()
+    {
+        if (!game.paused)
+            Invoke("Destroy", existenceTime);
+    }
 }
